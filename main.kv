@@ -1,0 +1,56 @@
+
+<SelecionarTela>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 100
+        spacing: 10
+
+        Label:
+            text: "Selecione o shopping"
+
+        Spinner:
+            id: spinner_shopping
+            text: 'Selecione o shopping'
+            values: ['Shopping A', 'Shopping E', 'Shopping I', 'Shopping O', 'Shopping U']
+            on_text: root.shopping = self.text
+
+        Label:
+            text: "Selecione a loja"
+
+        Spinner:
+            id: spinner_loja
+            text: 'Selecione a loja'
+            values: ['Loja A', 'Loja B', 'Loja C', 'Loja D', 'Loja E', 'Loja F', 'Loja G', 'Loja H', 'Loja I', 'Loja J', 'Loja K', 'Loja L', 'Loja M', 'Loja N', 'Loja O', 'Loja P', 'Loja Q', 'Loja R', 'Loja S', 'Loja T', 'Loja U', 'Loja V', 'Loja W', 'Loja X', 'Loja Y', 'Loja Z']
+            on_text: root.loja = self.text
+
+        Button:
+            text: "Buscar Loja"
+            size:(110,50)
+            size_hint: None, None
+            on_press: root.verificar_selecao()
+
+<MapaTela>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 20 
+        
+        Image:
+            source: 'mapa_shopping.png'
+            allow_stretch: True
+            keep_ratio: True
+
+        Label:
+            id: info_loja
+            text: ""
+
+        Button:
+            text: "Ver Cupons de Desconto"
+            size_hint_y: None 
+            height: 50
+        
+        Button:
+            text: 'Voltar'
+            size_hint_y: None
+            height: 50
+            on_press: app.root.current = app.root.previous()
