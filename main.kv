@@ -1,0 +1,144 @@
+<RoundedButton@Button>:
+    background_normal: ''
+    background_down: ''
+    background_color: [0.5, 0.5, 0.5, 1]
+    color: [1, 1, 1, 1]
+    font_size: '20sp'
+    padding: dp(15)
+
+    canvas.before:
+        Color:
+            rgba: [0, 0, 0, 0]
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            pos: self.x - dp(2), self.y - dp(2)
+            size: self.width + dp(4), self. height + dp(4)
+
+        Color:
+            rgba: self.background_color if self.state == 'normal' else [self.background_color[0]*0.8, self.background_color[1]*0.8, self.background_color[2]*0.8, self.background_color[3]] if self.state == 'down' else self.background_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+
+<Button>:
+    background_normal: ''
+    background_down: ''
+    background_color: [0.5, 0, 0.5, 1]
+    color: [1, 1, 1, 1]
+    font_size: '18sp'
+    size_hint_y: None
+    height: dp(50)
+
+<Spinner>:
+    background_normal: ''
+    background_down: ''
+    background_color: [0.5, 0.5, 0.5, 1]
+    color: [1, 1, 1, 1]
+    font_size: '16sp'
+    option_cls: 'SpinnerOption'
+
+<SpinnerOption@Label>:
+    color: [1, 1, 1, 1]
+    font_size: '16sp'
+    halign: 'center'
+    valign: 'middle'
+    padding: dp(5)
+
+<SelecionarShopping>:
+    RelativeLayout:
+        canvas.before:
+            Color:
+                rgba: [0.8, 0.8, 1, 1]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        background_color: [1, 0, 1, 1]
+        size_hint: 0.8, 0.25
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Spinner:
+            id: spinner_shopping
+            text: root.shopping_selecionado
+            values: root.shoppings
+            on_text: root.shopping_selecionado = self.text
+            size_hint_y: None
+            height: dp(50)
+            size_hint_x: 1
+
+        RoundedButton:
+            text: "Buscar Shopping"
+            size_hint: None, None
+            size: dp(150), dp(50)
+            pos_hint: {'center_x': 0.5}
+            on_press: root.avancar_para_lojas()
+
+        Widget:
+            size_hint_y: 1
+
+<SelecionarLoja>:
+    RelativeLayout:
+        canvas.before:
+            Color:
+                rgba: [0.8, 0.8, 1, 1]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        size_hint: 0.8, 0.4
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Spinner:
+            id: spinner_loja
+            text: 'Selecione a Loja'
+            values: root.opcoes_loja
+            on_text: root.loja = self.text
+            size_hint_y: None
+            height: dp(50)
+            size_hint_x: 1
+
+        RoundedButton:
+            text: "Buscar Loja"
+            size:(150,50)
+            size_hint: None, None
+            pos_hint: {'center_x': 0.5}
+            on_press: root.verificar_selecao()
+
+        RoundedButton:
+            text: 'Voltar'
+            size_hint: None, None
+            size: dp(120), dp(45)
+            pos_hint: {'right': 0.97, 'y': 0.03}
+            on_press: app.root.current = app.root.previous()
+
+<MapaTela>:
+    RelativeLayout:
+        Image:
+            id: mapa_image
+            source: root.mapa_source
+            size_hint: 0.9, 0.9
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {'center_x': 0.5, 'center_y':0.5}
+
+        Image:
+            id: cupom_image
+            source: 'cupom.png'
+            size_hint: None, None
+            size: dp(200), dp(100)
+            pos_hint: {'x': 0.03, 'y': 0.03}
+
+        RoundedButton:
+            text: 'Voltar'
+            size_hint: None, None
+            size: dp(120), dp(45)
+            pos_hint: {'right': 0.97, 'y': 0.03}
+            on_press: app.root.current = app.root.previous()
