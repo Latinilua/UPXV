@@ -43,7 +43,6 @@ class SelecionarLoja(Screen):
             mapa_screen.shopping = self.shopping
             mapa_screen.loja = self.loja
             self.manager.current = 'mapa'
-            
 
 class MapaTela(Screen):
     loja_info = StringProperty()
