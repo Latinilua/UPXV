@@ -8,6 +8,14 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.relativelayout import RelativeLayout
+from kivy.clock import Clock
+
+class InicioScreen(Screen):
+    def on_enter(self, *args):
+        Clock.schedule_once(self.go_to_main_screen, 3)
+
+    def go_to_main_screen(self, dt):
+        self.manager.current = 'selecionar_shopping'
 
 class SelecionarShopping(Screen):
     shopping_selecionado = StringProperty('Selecione o shopping')
@@ -51,9 +59,7 @@ class MapaTela(Screen):
     loja = StringProperty('')
 
     def on_pre_enter(self):
-        shopping_selecionado = self.manager.get_screen('selecionar_loja').shopping
-        loja_selecionada = self.manager.get_screen('selecionar_loja').loja
-        self.atualizar_mapa(shopping_selecionado, loja_selecionada)
+        self.atualizar_mapa(self.shopping, self.loja)
 
     def atualizar_mapa(self, shopping, loja):
         mapa_lojas = {
@@ -75,9 +81,11 @@ class MapaTela(Screen):
 class MainApp(App):
     def build(self):
         sm = ScreenManager()
+        sm.add_widget(InicioScreen(name='inicio_screen'))
         sm.add_widget(SelecionarShopping(name='selecionar_shopping'))
         sm.add_widget(SelecionarLoja(name='selecionar_loja'))
         sm.add_widget(MapaTela(name='mapa'))
+        sm.current = 'inicio_screen'
         return sm
 
 if __name__ == '__main__':
